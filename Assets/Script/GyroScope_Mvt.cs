@@ -15,12 +15,13 @@ public class GyroScope_Mvt : MonoBehaviour {
 
         startOrientation = GyroToUnity(Input.gyro.attitude);
         startOrientation = Quaternion.Inverse(startOrientation);
+        Application.targetFrameRate = 600000;
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 eulerRotation = new Vector3(Input.gyro.rotationRateUnbiased.x, Input.gyro.rotationRateUnbiased.z, Input.gyro.rotationRateUnbiased.y);
+        Vector3 eulerRotation = new Vector3(-Input.gyro.rotationRateUnbiased.x, Input.gyro.rotationRateUnbiased.z, -Input.gyro.rotationRateUnbiased.y);
         /*GravityTransform.rotation = Quaternion.AngleAxis(-eulerRotation.x * Mathf.Rad2Deg * Time.deltaTime, Vector3.right) *
                                     Quaternion.AngleAxis(-eulerRotation.y * Mathf.Rad2Deg * Time.deltaTime, Vector3.up) *
                                     Quaternion.AngleAxis(-eulerRotation.z * Mathf.Rad2Deg * Time.deltaTime, Vector3.forward) *
