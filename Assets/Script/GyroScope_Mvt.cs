@@ -6,6 +6,9 @@ public class GyroScope_Mvt : MonoBehaviour {
 
     Transform GravityTransform = null;
     Quaternion startOrientation;
+    float XStart;
+    float YStart;
+    float ZStart;
     // Use this for initialization
     void Start () {
         GameObject o = new GameObject("GravityObject");
@@ -17,11 +20,23 @@ public class GyroScope_Mvt : MonoBehaviour {
         startOrientation = Quaternion.Inverse(startOrientation);
         Application.targetFrameRate = 600000;
 
+        XStart = -Input.gyro.attitude.eulerAngles.x;
+        YStart = -Input.gyro.attitude.eulerAngles.y;
+        ZStart = -Input.gyro.attitude.eulerAngles.z;
+        print(XStart +""+ YStart +""+ ZStart);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 eulerRotation = new Vector3(-Input.gyro.attitude.eulerAngles.x, Input.gyro.attitude.eulerAngles.z, -Input.gyro.attitude.eulerAngles.y);
+        Vector3 eulerRotation;
+        /*if (Input.gyro.attitude.eulerAngles.z - ZStart < 0)
+        {
+            eulerRotation = new Vector3(Input.gyro.attitude.eulerAngles.x, Input.gyro.attitude.eulerAngles.z, Input.gyro.attitude.eulerAngles.y);
+        }
+        else
+        {*/
+            eulerRotation = new Vector3(-Input.gyro.attitude.eulerAngles.x, -Input.gyro.attitude.eulerAngles.z, -Input.gyro.attitude.eulerAngles.y);
+        //}
         /*GravityTransform.rotation = Quaternion.AngleAxis(-eulerRotation.x * Mathf.Rad2Deg * Time.deltaTime, Vector3.right) *
                                     Quaternion.AngleAxis(-eulerRotation.y * Mathf.Rad2Deg * Time.deltaTime, Vector3.up) *
                                     Quaternion.AngleAxis(-eulerRotation.z * Mathf.Rad2Deg * Time.deltaTime, Vector3.forward) *
@@ -32,7 +47,7 @@ public class GyroScope_Mvt : MonoBehaviour {
         Physics.gravity = -GravityTransform.up;
         //print (Input.gyro.rotationRateUnbiased.x*Mathf.Rad2Deg);
         //print(Input.gyro.rotationRateUnbiased.z);
-        print(Input.gyro.attitude.eulerAngles);
+        //print(Input.gyro.attitude.eulerAngles);
     }
 
     private static Quaternion GyroToUnity(Quaternion q)
