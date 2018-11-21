@@ -21,16 +21,18 @@ public class GyroScope_Mvt : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 eulerRotation = new Vector3(-Input.gyro.rotationRateUnbiased.x, Input.gyro.rotationRateUnbiased.z, -Input.gyro.rotationRateUnbiased.y);
+        Vector3 eulerRotation = new Vector3(-Input.gyro.attitude.eulerAngles.x, Input.gyro.attitude.eulerAngles.z, -Input.gyro.attitude.eulerAngles.y);
         /*GravityTransform.rotation = Quaternion.AngleAxis(-eulerRotation.x * Mathf.Rad2Deg * Time.deltaTime, Vector3.right) *
                                     Quaternion.AngleAxis(-eulerRotation.y * Mathf.Rad2Deg * Time.deltaTime, Vector3.up) *
                                     Quaternion.AngleAxis(-eulerRotation.z * Mathf.Rad2Deg * Time.deltaTime, Vector3.forward) *
                                     GravityTransform.rotation;*/
-       GravityTransform.Rotate(eulerRotation * Mathf.Rad2Deg * Time.deltaTime, Space.Self);
-
+        //GravityTransform.Rotate((eulerRotation) * Mathf.Rad2Deg * Time.deltaTime, Space.Self);
+        GravityTransform.rotation = Quaternion.Euler(eulerRotation);
         //GravityTransform.rotation = startOrientation * GyroToUnity(Input.gyro.attitude);
         Physics.gravity = -GravityTransform.up;
-        print (Physics.gravity.magnitude);
+        //print (Input.gyro.rotationRateUnbiased.x*Mathf.Rad2Deg);
+        //print(Input.gyro.rotationRateUnbiased.z);
+        print(Input.gyro.attitude.eulerAngles);
     }
 
     private static Quaternion GyroToUnity(Quaternion q)
