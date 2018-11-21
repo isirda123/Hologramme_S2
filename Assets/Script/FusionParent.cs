@@ -6,6 +6,8 @@ public class FusionParent : MonoBehaviour {
 
     public GameObject Enfant;
 
+    public int numberOfChilds = 5;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -21,7 +23,7 @@ public class FusionParent : MonoBehaviour {
         if (collision.transform.name.Contains("Parent"))
         {
             Vector3 Pos = collision.contacts[0].point;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < numberOfChilds; i++)
                 CreateNewChild(Pos);
         }
     }
