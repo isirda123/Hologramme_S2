@@ -35,14 +35,16 @@ public class GyroScope_Mvt : MonoBehaviour {
         }
         else
         {*/
-            eulerRotation = new Vector3(-Input.gyro.attitude.eulerAngles.x, -Input.gyro.attitude.eulerAngles.z, -Input.gyro.attitude.eulerAngles.y);
+        //eulerRotation = new Vector3(-Input.gyro.attitude.eulerAngles.x, -Input.gyro.attitude.eulerAngles.z, -Input.gyro.attitude.eulerAngles.y);
+        eulerRotation = new Vector3(-Input.acceleration.normalized.y, Input.acceleration.normalized.z, -Input.acceleration.normalized.x);
+        print(Input.acceleration.normalized);
         //}
         /*GravityTransform.rotation = Quaternion.AngleAxis(-eulerRotation.x * Mathf.Rad2Deg * Time.deltaTime, Vector3.right) *
                                     Quaternion.AngleAxis(-eulerRotation.y * Mathf.Rad2Deg * Time.deltaTime, Vector3.up) *
                                     Quaternion.AngleAxis(-eulerRotation.z * Mathf.Rad2Deg * Time.deltaTime, Vector3.forward) *
                                     GravityTransform.rotation;*/
         //GravityTransform.Rotate((eulerRotation) * Mathf.Rad2Deg * Time.deltaTime, Space.Self);
-        GravityTransform.rotation = Quaternion.Euler(eulerRotation);
+        GravityTransform.rotation = Quaternion.Euler(eulerRotation*Mathf.Rad2Deg);
         //GravityTransform.rotation = startOrientation * GyroToUnity(Input.gyro.attitude);
         Physics.gravity = -GravityTransform.up;
         //print (Input.gyro.rotationRateUnbiased.x*Mathf.Rad2Deg);
