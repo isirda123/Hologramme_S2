@@ -21,7 +21,13 @@ public class FusionParent : MonoBehaviour {
         if (collision.transform.name.Contains("Parent"))
         {
             Vector3 Pos = collision.contacts[0].point;
-            Instantiate(Enfant, new Vector3 (Pos.x, Pos.y, Pos.z), new Quaternion (0,0,0,0));
+            for (int i = 0; i < 5; i++)
+                CreateNewChild(Pos);
         }
+    }
+
+    private void CreateNewChild(Vector3 position)
+    {
+        Instantiate(Enfant, new Vector3(position.x, position.y, position.z), new Quaternion(0, 0, 0, 0), transform.parent);
     }
 }
