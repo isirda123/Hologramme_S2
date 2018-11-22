@@ -9,8 +9,14 @@ public class GyroScope_Mvt : MonoBehaviour {
     float XStart;
     float YStart;
     float ZStart;
+
+    public bool invertAxis;
+
+    public Vector3 fuckthis;
+
+
     // Use this for initialization
-    void Start () {
+    IEnumerator Start () {
         GameObject o = new GameObject("GravityObject");
         GravityTransform = o.transform;
         Input.gyro.enabled = true;
@@ -20,9 +26,10 @@ public class GyroScope_Mvt : MonoBehaviour {
         startOrientation = Quaternion.Inverse(startOrientation);
         Application.targetFrameRate = 600000;
 
-        XStart = -Input.gyro.attitude.eulerAngles.x;
-        YStart = -Input.gyro.attitude.eulerAngles.y;
-        ZStart = -Input.gyro.attitude.eulerAngles.z;
+        yield return null;
+        XStart = -Input.acceleration.normalized.x;
+        YStart = -Input.acceleration.normalized.y;
+        ZStart = -Input.acceleration.normalized.z;
         print(XStart +""+ YStart +""+ ZStart);
     }
 	
@@ -36,17 +43,68 @@ public class GyroScope_Mvt : MonoBehaviour {
         else
         {*/
         //eulerRotation = new Vector3(-Input.gyro.attitude.eulerAngles.x, -Input.gyro.attitude.eulerAngles.z, -Input.gyro.attitude.eulerAngles.y);
-        eulerRotation = new Vector3(-Input.acceleration.normalized.y, Input.acceleration.normalized.z, -Input.acceleration.normalized.x);
-        print(Input.acceleration.normalized);
+	    fuckthis = fuckthis.normalized;
+	    Vector3 normalizeThatPlease = Input.acceleration.normalized;
+        normalizeThatPlease = normalizeThatPlease.normalized;
+        if (!invertAxis)
+	    {
+            
+            //eulerRotation = new Vector3(-normalizeThatPlease.y - YStart, normalizeThatPlease.z - ZStart, -normalizeThatPlease.x - XStart);
+	        eulerRotation = new Vector3(normalizeThatPlease.y, 0, 0);
+        }
+	    else
+	    {
+	        eulerRotation = new Vector3(Input.acceleration.normalized.y - YStart, Input.acceleration.normalized.z - ZStart, Input.acceleration.normalized.x - XStart);
+        }        
+        //print(normalizeThatPlease);
         //}
         /*GravityTransform.rotation = Quaternion.AngleAxis(-eulerRotation.x * Mathf.Rad2Deg * Time.deltaTime, Vector3.right) *
                                     Quaternion.AngleAxis(-eulerRotation.y * Mathf.Rad2Deg * Time.deltaTime, Vector3.up) *
                                     Quaternion.AngleAxis(-eulerRotation.z * Mathf.Rad2Deg * Time.deltaTime, Vector3.forward) *
                                     GravityTransform.rotation;*/
         //GravityTransform.Rotate((eulerRotation) * Mathf.Rad2Deg * Time.deltaTime, Space.Self);
-        GravityTransform.rotation = Quaternion.Euler(eulerRotation*Mathf.Rad2Deg);
+	    eulerRotation.x = -180f + (eulerRotation.x - -1f) * (180f - -180f) / (1f - -1f);
+	    //eulerRotation.y = -180f + (eulerRotation.y - -1f) * (180f - -180f) / (1f - -1f);
+	    //eulerRotation.z = -180f + (eulerRotation.z - -1f) * (180f - -180f) / (1f - -1f);
+	    Quaternion newRot = Input.gyro.attitude;
+	    Vector3 rotEuler = newRot.eulerAngles;
+	    Vector3 temp = rotEuler;
+	    rotEuler.x = temp.y;
+	    rotEuler.y = 0;
+	    rotEuler.z = -temp.x;
+	    newRot = Quaternion.Euler(rotEuler.x, rotEuler.y, rotEuler.z);
+	    //newRot *= Quaternion.AngleAxis(-90, Vector3.forward);
+
+        GravityTransform.rotation = newRot;//Quaternion.Euler(eulerRotation);
+        transform.rotation = newRot;
+
+	    //Physics.gravity = -GravityTransform.up;
+
+
+
+        Vector3 dir = Vector3.zero;
+
+	    // we assume that device is held parallel to the ground
+	    // and Home button is in the right hand
+
+	    // remap device acceleration axis to game coordinates:
+	    //  1) XY plane of the device is mapped onto XZ plane
+	    //  2) rotated 90 degrees around Y axis
+	    dir.x = -Input.gyro.userAcceleration.y;
+	    dir.z = Input.gyro.userAcceleration.x;
+
+	    // clamp acceleration vector to unit sphere
+	    if (dir.sqrMagnitude > 1)
+	        dir.Normalize();
+
+	    // Make it move 10 meters per second instead of 10 meters per frame...
+	    dir *= Time.deltaTime;
+
+	    // Move object
+	    //transform.Translate(dir * 30);
+        
         //GravityTransform.rotation = startOrientation * GyroToUnity(Input.gyro.attitude);
-        Physics.gravity = -GravityTransform.up;
+        //Physics.gravity = -GravityTransform.up;
         //print (Input.gyro.rotationRateUnbiased.x*Mathf.Rad2Deg);
         //print(Input.gyro.rotationRateUnbiased.z);
         //print(Input.gyro.attitude.eulerAngles);
