@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GyroScope_Mvt : MonoBehaviour {
 
+    public bool TypeRotation = false;
     Transform GravityTransform = null;
     Quaternion startOrientation;
     float XStart;
@@ -14,6 +15,9 @@ public class GyroScope_Mvt : MonoBehaviour {
 
     public Vector3 fuckthis;
 
+    private Rigidbody rb;
+
+    Quaternion newRot;
 
     // Use this for initialization
     IEnumerator Start () {
@@ -26,38 +30,54 @@ public class GyroScope_Mvt : MonoBehaviour {
         startOrientation = Quaternion.Inverse(startOrientation);
         Application.targetFrameRate = 600000;
 
+        rb = GetComponent<Rigidbody>();
+
         yield return null;
         XStart = -Input.acceleration.normalized.x;
         YStart = -Input.acceleration.normalized.y;
         ZStart = -Input.acceleration.normalized.z;
         print(XStart +""+ YStart +""+ ZStart);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         Vector3 eulerRotation;
-        /*if (Input.gyro.attitude.eulerAngles.z - ZStart < 0)
+
+        if (TypeRotation == true)
         {
-            eulerRotation = new Vector3(Input.gyro.attitude.eulerAngles.x, Input.gyro.attitude.eulerAngles.z, Input.gyro.attitude.eulerAngles.y);
+ //           if (Input.acceleration.normalized.z < 0)
+ //           {
+                newRot = Quaternion.Euler(Input.acceleration.normalized.y*Mathf.Rad2Deg, 0, -Input.acceleration.normalized.x * Mathf.Rad2Deg);
+ //           }
+  //          else
+ //           {
+ //               newRot = Quaternion.Euler(-Input.acceleration.normalized.x * Mathf.Rad2Deg, -Input.acceleration.normalized.z * Mathf.Rad2Deg, Input.acceleration.normalized.y * Mathf.Rad2Deg);
+ //           }
         }
         else
-        {*/
-        //eulerRotation = new Vector3(-Input.gyro.attitude.eulerAngles.x, -Input.gyro.attitude.eulerAngles.z, -Input.gyro.attitude.eulerAngles.y);
-	    //eulerRotation.x = -180f + (eulerRotation.x - -1f) * (180f - -180f) / (1f - -1f);
-	    //eulerRotation.y = -180f + (eulerRotation.y - -1f) * (180f - -180f) / (1f - -1f);
-	    //eulerRotation.z = -180f + (eulerRotation.z - -1f) * (180f - -180f) / (1f - -1f);
-	    Quaternion newRot = Input.gyro.attitude;
-	    Vector3 rotEuler = newRot.eulerAngles;
-	    Vector3 temp = rotEuler;
-	    rotEuler.x = temp.y;
-	    rotEuler.y = 0;
-	    rotEuler.z = -temp.x;
-	    newRot = Quaternion.Euler(rotEuler.x, rotEuler.y, -rotEuler.z);
+        {
+            //eulerRotation.x = -180f + (eulerRotation.x - -1f) * (180f - -180f) / (1f - -1f);
+            //eulerRotation.y = -180f + (eulerRotation.y - -1f) * (180f - -180f) / (1f - -1f);
+            //eulerRotation.z = -180f + (eulerRotation.z - -1f) * (180f - -180f) / (1f - -1f);
+            newRot = Input.gyro.attitude;
+            Vector3 rotEuler = newRot.eulerAngles;
+            Vector3 temp = rotEuler;
+            rotEuler.x = temp.y;
+            rotEuler.y = 0;
+            rotEuler.z = -temp.x;
+            newRot = Quaternion.Euler(rotEuler.x, rotEuler.y, -rotEuler.z);
+            rotEuler.x = -temp.x;
+            rotEuler.y = temp.z;
+            rotEuler.z = -temp.y;
+            newRot = Quaternion.Euler(rotEuler.x, rotEuler.y, rotEuler.z);
+        }
 	    //newRot *= Quaternion.AngleAxis(-90, Vector3.forward);
 
         GravityTransform.rotation = newRot;//Quaternion.Euler(eulerRotation);
         transform.rotation = newRot;
-
+        
+        //rb.rotation = newRot;
+	    //rb.AddTorque(rotEuler, ForceMode.VelocityChange);
 	    //Physics.gravity = -GravityTransform.up;
 
 
