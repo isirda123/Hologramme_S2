@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33885864537433202}
   - component: {fileID: 23174608829520384}
   m_Layer: 0
-  m_Name: BalleTest3
+  m_Name: BilleTest3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
