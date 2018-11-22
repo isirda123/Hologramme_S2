@@ -38,9 +38,9 @@ public class GyroScope_Mvt : MonoBehaviour {
         ZStart = -Input.acceleration.normalized.z;
         print(XStart +""+ YStart +""+ ZStart);
     }
-
-    // Update is called once per frame
-    void Update() {
+	
+	// Update is called once per frame
+	void FixedUpdate () {
         Vector3 eulerRotation;
 
         if (TypeRotation == true)
@@ -74,11 +74,27 @@ public class GyroScope_Mvt : MonoBehaviour {
 	    //newRot *= Quaternion.AngleAxis(-90, Vector3.forward);
 
         GravityTransform.rotation = newRot;//Quaternion.Euler(eulerRotation);
-        transform.rotation = newRot;
+                                           //transform.rotation = newRot;
         
+
+	    Quaternion AngleDifference = Quaternion.FromToRotation(transform.up, (newRot * Vector3.up).normalized);
+
+	    float AngleToCorrect = Quaternion.Angle(newRot, rb.rotation);
+	    Vector3 Perpendicular = Vector3.Cross((newRot * Vector3.up).normalized, (newRot * Vector3.forward).normalized);
+	    if (Vector3.Dot(transform.forward, Perpendicular) < 0)
+	        AngleToCorrect *= -1;
+	    Quaternion Correction = Quaternion.AngleAxis(AngleToCorrect, (newRot * Vector3.up).normalized);
+
+	    Vector3 MainRotation = RectifyAngleDifference((AngleDifference).eulerAngles);
+	    Vector3 CorrectiveRotation = RectifyAngleDifference((Correction).eulerAngles);
+	    rb.AddTorque((MainRotation - CorrectiveRotation / 2) - rb.angularVelocity, ForceMode.VelocityChange);
+
         //rb.rotation = newRot;
-	    //rb.AddTorque(rotEuler, ForceMode.VelocityChange);
-	    //Physics.gravity = -GravityTransform.up;
+
+        //rotEuler = transform.rotation.eulerAngles - rotEuler;
+        //rb.AddTorque(rotEuler, ForceMode.VelocityChange);
+        //Physics.gravity = -GravityTransform.up;
+        //rb.angularVelocity = Mathf.Deg2Rad * rotEuler;
 
 
 
@@ -129,6 +145,14 @@ public class GyroScope_Mvt : MonoBehaviour {
     public static float Remap(float minOld, float maxOld, float minNew, float maxNew, float value)
     {
         return minNew + (value - minOld) * (maxOld - maxNew) / (maxOld - minOld);
+    }
+
+    private Vector3 RectifyAngleDifference(Vector3 angdiff)
+    {
+        if (angdiff.x > 180) angdiff.x -= 360;
+        if (angdiff.y > 180) angdiff.y -= 360;
+        if (angdiff.z > 180) angdiff.z -= 360;
+        return angdiff;
     }
 
 }
