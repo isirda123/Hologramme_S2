@@ -43,6 +43,7 @@ public class GyroScope_Mvt : MonoBehaviour {
         else
         {*/
         //eulerRotation = new Vector3(-Input.gyro.attitude.eulerAngles.x, -Input.gyro.attitude.eulerAngles.z, -Input.gyro.attitude.eulerAngles.y);
+<<<<<<< HEAD
 	    fuckthis = fuckthis.normalized;
 	    Vector3 normalizeThatPlease = Input.acceleration.normalized;
         normalizeThatPlease = normalizeThatPlease.normalized;
@@ -57,12 +58,18 @@ public class GyroScope_Mvt : MonoBehaviour {
 	        eulerRotation = new Vector3(Input.acceleration.normalized.y - YStart, Input.acceleration.normalized.z - ZStart, Input.acceleration.normalized.x - XStart);
         }        
         //print(normalizeThatPlease);
+=======
+        eulerRotation = new Vector3(Input.acceleration.normalized.y, -Input.acceleration.normalized.z, -Input.acceleration.normalized.x);
+        //eulerRotation = AccelToDeg(eulerRotation);
+        print(Input.acceleration.normalized);
+>>>>>>> 3a07aec981120528dd4fa0611b8cc84e1d591612
         //}
         /*GravityTransform.rotation = Quaternion.AngleAxis(-eulerRotation.x * Mathf.Rad2Deg * Time.deltaTime, Vector3.right) *
                                     Quaternion.AngleAxis(-eulerRotation.y * Mathf.Rad2Deg * Time.deltaTime, Vector3.up) *
                                     Quaternion.AngleAxis(-eulerRotation.z * Mathf.Rad2Deg * Time.deltaTime, Vector3.forward) *
                                     GravityTransform.rotation;*/
         //GravityTransform.Rotate((eulerRotation) * Mathf.Rad2Deg * Time.deltaTime, Space.Self);
+<<<<<<< HEAD
 	    eulerRotation.x = -180f + (eulerRotation.x - -1f) * (180f - -180f) / (1f - -1f);
 	    //eulerRotation.y = -180f + (eulerRotation.y - -1f) * (180f - -180f) / (1f - -1f);
 	    //eulerRotation.z = -180f + (eulerRotation.z - -1f) * (180f - -180f) / (1f - -1f);
@@ -105,6 +112,22 @@ public class GyroScope_Mvt : MonoBehaviour {
         
         //GravityTransform.rotation = startOrientation * GyroToUnity(Input.gyro.attitude);
         //Physics.gravity = -GravityTransform.up;
+=======
+        GravityTransform.rotation = Quaternion.Euler(eulerRotation*Mathf.Rad2Deg);
+        //Physics.gravity = -GravityTransform.up;
+        //GravityTransform.rotation = startOrientation * GyroToUnity(Input.gyro.attitude);
+        if (eulerRotation.y > 0)
+        {
+            Physics.gravity = -GravityTransform.up;
+        }
+        else
+        {
+            Physics.gravity = GravityTransform.up;
+        }
+
+
+
+>>>>>>> 3a07aec981120528dd4fa0611b8cc84e1d591612
         //print (Input.gyro.rotationRateUnbiased.x*Mathf.Rad2Deg);
         //print(Input.gyro.rotationRateUnbiased.z);
         //print(Input.gyro.attitude.eulerAngles);
@@ -116,4 +139,19 @@ public class GyroScope_Mvt : MonoBehaviour {
         //return new Quaternion(q.x, q.y, -q.z, -q.w);
     }
     
+
+    private static Vector3 AccelToDeg(Vector3 value)
+    {
+        value.x = -Remap(-1, 1, -180, 180, value.x);
+        value.y = -Remap(-1, 1, -180, 180, value.y);
+        value.z = -Remap(-1, 1, -180, 180, value.z);
+
+        return value;
+    }
+
+    public static float Remap(float minOld, float maxOld, float minNew, float maxNew, float value)
+    {
+        return minNew + (value - minOld) * (maxOld - maxNew) / (maxOld - minOld);
+    }
+
 }
