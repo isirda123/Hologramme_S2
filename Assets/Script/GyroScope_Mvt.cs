@@ -52,7 +52,7 @@ public class GyroScope_Mvt : MonoBehaviour {
 	    rotEuler.x = temp.y;
 	    rotEuler.y = 0;
 	    rotEuler.z = -temp.x;
-	    newRot = Quaternion.Euler(rotEuler.x, rotEuler.y, rotEuler.z);
+	    newRot = Quaternion.Euler(rotEuler.x, rotEuler.y, -rotEuler.z);
 	    //newRot *= Quaternion.AngleAxis(-90, Vector3.forward);
 
         GravityTransform.rotation = newRot;//Quaternion.Euler(eulerRotation);
