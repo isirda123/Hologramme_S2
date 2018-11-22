@@ -5953,7 +5953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5112d7d6570834baf69dc5ab91af8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TypeRotation: 1
+  TypeRotation: 0
   invertAxis: 0
   fuckthis: {x: 0, y: 0, z: 0}
 --- !u!114 &1492587057
