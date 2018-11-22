@@ -10,7 +10,7 @@ public class ChangementScene : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        NbOfRoom = new GameObject[transform.childCount - 1];
+        NbOfRoom = new GameObject[transform.childCount];
         int j = 0;
         for (int i =0; i<this.transform.childCount; i++)
         {
@@ -28,7 +28,8 @@ public class ChangementScene : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (Input.GetKeyDown(KeyCode.N))
+            ChangementSceneButton();
 	}
 
     public void ChangementSceneButton()
