@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChangementScene : MonoBehaviour {
 
@@ -37,6 +38,7 @@ public class ChangementScene : MonoBehaviour {
         if (QuelScene >= NbOfRoom.Length)
         {
             QuelScene = 0;
+            SceneManager.LoadScene(0);
         }
         NbOfRoom[QuelScene].gameObject.SetActive(true);
     }
