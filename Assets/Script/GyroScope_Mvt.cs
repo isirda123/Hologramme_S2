@@ -14,6 +14,7 @@ public class GyroScope_Mvt : MonoBehaviour {
 
     public Vector3 fuckthis;
 
+    private Rigidbody rb;
 
     // Use this for initialization
     IEnumerator Start () {
@@ -25,6 +26,8 @@ public class GyroScope_Mvt : MonoBehaviour {
         startOrientation = GyroToUnity(Input.gyro.attitude);
         startOrientation = Quaternion.Inverse(startOrientation);
         Application.targetFrameRate = 600000;
+
+        rb = GetComponent<Rigidbody>();
 
         yield return null;
         XStart = -Input.acceleration.normalized.x;
@@ -57,7 +60,9 @@ public class GyroScope_Mvt : MonoBehaviour {
 
         GravityTransform.rotation = newRot;//Quaternion.Euler(eulerRotation);
         transform.rotation = newRot;
-
+        
+        //rb.rotation = newRot;
+	    //rb.AddTorque(rotEuler, ForceMode.VelocityChange);
 	    //Physics.gravity = -GravityTransform.up;
 
 

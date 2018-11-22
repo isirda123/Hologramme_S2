@@ -26,6 +26,11 @@ public class FusionParent : MonoBehaviour {
             for (int i = 0; i < numberOfChilds; i++)
                 CreateNewChild(Pos);
         }
+
+        else if (collision.gameObject.CompareTag("Creatrice"))
+        {
+
+        }
     }
 
     private void CreateNewChild(Vector3 position)
