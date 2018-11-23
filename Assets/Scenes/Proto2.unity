@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 68209889}
   - component: {fileID: 68209888}
   m_Layer: 0
-  m_Name: RightCam
+  m_Name: BottomCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4145,7 +4145,7 @@ GameObject:
   - component: {fileID: 1044423083}
   - component: {fileID: 1044423082}
   m_Layer: 0
-  m_Name: TopCam
+  m_Name: RightCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5935,6 +5935,7 @@ GameObject:
   - component: {fileID: 1492587058}
   - component: {fileID: 1492587057}
   - component: {fileID: 1492587056}
+  - component: {fileID: 1492587059}
   m_Layer: 0
   m_Name: Hologram
   m_TagString: Untagged
@@ -5985,6 +5986,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1492587059
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1492587055}
+  serializedVersion: 2
+  m_Mass: 1e+9
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!1 &1496633606 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: aaf0e572048dab74d9bb8487fb59608d,
@@ -6489,7 +6505,7 @@ GameObject:
   - component: {fileID: 1549737991}
   - component: {fileID: 1549737990}
   m_Layer: 0
-  m_Name: BottomCam
+  m_Name: LeftCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8286,7 +8302,7 @@ GameObject:
   - component: {fileID: 1919476594}
   - component: {fileID: 1919476593}
   m_Layer: 0
-  m_Name: LeftCam
+  m_Name: TopCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
