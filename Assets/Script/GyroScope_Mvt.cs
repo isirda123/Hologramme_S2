@@ -86,6 +86,12 @@ public class GyroScope_Mvt : MonoBehaviour {
             rotEuler.z = DeviceRotation.GetAngleByDeviceAxis(Vector3.forward);*/
 
             newRot = Quaternion.Euler(rotEuler.x, rotEuler.y, rotEuler.z);
+
+            //Vector3 localEuler = transform.eulerAngles;
+            //newRot = Quaternion.AngleAxis(rotEuler.x - transform.eulerAngles.x, transform.right) * newRot;
+            //newRot = Quaternion.AngleAxis(rotEuler.z - transform.eulerAngles.z, transform.forward) * newRot;
+
+
         }
 	    //newRot *= Quaternion.AngleAxis(-90, Vector3.forward);
 
