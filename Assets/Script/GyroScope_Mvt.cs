@@ -74,20 +74,26 @@ public class GyroScope_Mvt : MonoBehaviour {
 	    //newRot *= Quaternion.AngleAxis(-90, Vector3.forward);
 
         GravityTransform.rotation = newRot;//Quaternion.Euler(eulerRotation);
-                                           //transform.rotation = newRot;
-        
 
-	    Quaternion AngleDifference = Quaternion.FromToRotation(transform.up, (newRot * Vector3.up).normalized);
+        if (invertAxis == true)
+        {
+            transform.rotation = newRot;
+        }
+        else
+        {
+            Quaternion AngleDifference = Quaternion.FromToRotation(transform.up, (newRot * Vector3.up).normalized);
 
-	    float AngleToCorrect = Quaternion.Angle(newRot, rb.rotation);
-	    Vector3 Perpendicular = Vector3.Cross((newRot * Vector3.up).normalized, (newRot * Vector3.forward).normalized);
-	    if (Vector3.Dot(transform.forward, Perpendicular) < 0)
-	        AngleToCorrect *= -1;
-	    Quaternion Correction = Quaternion.AngleAxis(AngleToCorrect, (newRot * Vector3.up).normalized);
+            float AngleToCorrect = Quaternion.Angle(newRot, rb.rotation);
+            Vector3 Perpendicular = Vector3.Cross((newRot * Vector3.up).normalized, (newRot * Vector3.forward).normalized);
+            if (Vector3.Dot(transform.forward, Perpendicular) < 0)
+                AngleToCorrect *= -1;
+            Quaternion Correction = Quaternion.AngleAxis(AngleToCorrect, (newRot * Vector3.up).normalized);
 
-	    Vector3 MainRotation = RectifyAngleDifference((AngleDifference).eulerAngles);
-	    Vector3 CorrectiveRotation = RectifyAngleDifference((Correction).eulerAngles);
-	    rb.AddTorque((MainRotation - CorrectiveRotation / 2) - rb.angularVelocity, ForceMode.VelocityChange);
+            Vector3 MainRotation = RectifyAngleDifference((AngleDifference).eulerAngles);
+            Vector3 CorrectiveRotation = RectifyAngleDifference((Correction).eulerAngles);
+            rb.AddTorque((MainRotation - CorrectiveRotation / 2) - rb.angularVelocity, ForceMode.VelocityChange);
+        }
+	   
 
         //rb.rotation = newRot;
 
