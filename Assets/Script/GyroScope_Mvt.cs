@@ -17,7 +17,6 @@ public class GyroScope_Mvt : MonoBehaviour {
 
     private Rigidbody rb;
 
-    Quaternion newRot;
 
     // Use this for initialization
     IEnumerator Start () {
@@ -42,6 +41,7 @@ public class GyroScope_Mvt : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
         Vector3 eulerRotation;
+	    Quaternion newRot;
 
         if (TypeRotation == true)
         {
@@ -59,16 +59,32 @@ public class GyroScope_Mvt : MonoBehaviour {
             //eulerRotation.x = -180f + (eulerRotation.x - -1f) * (180f - -180f) / (1f - -1f);
             //eulerRotation.y = -180f + (eulerRotation.y - -1f) * (180f - -180f) / (1f - -1f);
             //eulerRotation.z = -180f + (eulerRotation.z - -1f) * (180f - -180f) / (1f - -1f);
-            newRot = Input.gyro.attitude;
+            newRot = DeviceRotation.Get();
+
+            //DeviceRotation.GetAngleByDeviceAxis(Vector3.right);
+            //DeviceRotation.GetAngleByDeviceAxis(Vector3.forward);
+            
+
+            //Vector3 rotEuler = new Vector3(DeviceRotation.GetAngleByDeviceAxis(Vector3.right), DeviceRotation.GetAngleByDeviceAxis(Vector3.up), DeviceRotation.GetAngleByDeviceAxis(Vector3.forward));
+
             Vector3 rotEuler = newRot.eulerAngles;
             Vector3 temp = rotEuler;
-            rotEuler.x = temp.y;
-            rotEuler.y = 0;
-            rotEuler.z = -temp.x;
-            newRot = Quaternion.Euler(rotEuler.x, rotEuler.y, -rotEuler.z);
+
+
             rotEuler.x = -temp.x;
             rotEuler.y = temp.z;
             rotEuler.z = -temp.y;
+
+            temp = rotEuler;
+
+            rotEuler.y = -temp.z;
+            rotEuler.z = temp.y;
+
+            /*rotEuler = new Vector3();
+
+            rotEuler.x = DeviceRotation.GetAngleByDeviceAxis(Vector3.right);
+            rotEuler.z = DeviceRotation.GetAngleByDeviceAxis(Vector3.forward);*/
+
             newRot = Quaternion.Euler(rotEuler.x, rotEuler.y, rotEuler.z);
         }
 	    //newRot *= Quaternion.AngleAxis(-90, Vector3.forward);
@@ -160,5 +176,78 @@ public class GyroScope_Mvt : MonoBehaviour {
         if (angdiff.z > 180) angdiff.z -= 360;
         return angdiff;
     }
+
+}
+
+
+
+public static class DeviceRotation
+{
+    private static bool gyroInitialized = false;
+
+    public static bool HasGyroscope
+    {
+        get
+        {
+            return SystemInfo.supportsGyroscope;
+        }
+    }
+
+    public static Quaternion Get()
+    {
+        if (!gyroInitialized)
+        {
+            InitGyro();
+        }
+
+        return HasGyroscope
+            ? ReadGyroscopeRotation()
+            : Quaternion.identity;
+    }
+
+    private static void InitGyro()
+    {
+        if (HasGyroscope)
+        {
+            Input.gyro.enabled = true;                // enable the gyroscope
+            Input.gyro.updateInterval = 0.0167f;    // set the update interval to it's highest value (60 Hz)
+        }
+        gyroInitialized = true;
+    }
+
+    private static Quaternion ReadGyroscopeRotation()
+    {
+        return new Quaternion(0.5f, 0.5f, -0.5f, 0.5f) * Input.gyro.attitude * new Quaternion(0, 0, 1, 0) * Quaternion.AngleAxis(90, Vector3.right) * Quaternion.AngleAxis(180, Vector3.right);
+    }
+
+
+
+    /// <summary>
+    /// Returns the rotation angle of given device axis. Use Vector3.right to obtain pitch, Vector3.up for yaw and Vector3.forward for roll.
+    /// This is for landscape mode. Up vector is the wide side of the phone and forward vector is where the back camera points to.
+    /// </summary>
+    /// <returns>A scalar value, representing the rotation amount around specified axis.</returns>
+    /// <param name="axis">Should be either Vector3.right, Vector3.up or Vector3.forward. Won't work for anything else.</param>
+    public static float GetAngleByDeviceAxis(Vector3 axis)
+    {
+        Quaternion deviceRotation = DeviceRotation.Get();
+        Quaternion eliminationOfOthers = Quaternion.Inverse(
+            Quaternion.FromToRotation(axis, deviceRotation * axis)
+        );
+        Vector3 filteredEuler = (eliminationOfOthers * deviceRotation).eulerAngles;
+
+        float result = filteredEuler.z;
+        if (axis == Vector3.up)
+        {
+            result = filteredEuler.y;
+        }
+        if (axis == Vector3.right)
+        {
+            // incorporate different euler representations.
+            result = (filteredEuler.y > 90 && filteredEuler.y < 270) ? 180 - filteredEuler.x : filteredEuler.x;
+        }
+        return result;
+    }
+
 
 }
