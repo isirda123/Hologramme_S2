@@ -288,7 +288,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: 90.00001}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1359, y: -77}
+  m_AnchoredPosition: {x: -1359, y: 21.3}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &41271723
@@ -500,7 +500,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 6935
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: b7ec7e04bc3d74de59b07bc3d0867533, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 952506fc2dc114d0badcd009952cc7a0, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -941,7 +941,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: cd5c0c2149893034f8176af3b5ffc308, type: 2}
+  - {fileID: 2100000, guid: 2f416743f97347f44ac134882da2c8bc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2472,7 +2472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomCenter: {fileID: 1412307611}
-  neutralMat: {fileID: 2100000, guid: 1bf61dab70be1b241888e30628b3d253, type: 2}
+  neutralMat: {fileID: 2100000, guid: 9a606bbaacc6794448a60d3e67ba8b3d, type: 2}
 --- !u!1 &658499067
 GameObject:
   m_ObjectHideFlags: 0
@@ -2856,7 +2856,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -179.99998, z: 90.00001}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1353, y: -74}
+  m_AnchoredPosition: {x: 1310.4, y: 21}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &720282164
@@ -2917,14 +2917,14 @@ RectTransform:
   m_GameObject: {fileID: 725566553}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -7.932345, y: 7.932345, z: 7.932345}
+  m_LocalScale: {x: 7.932345, y: 7.932345, z: 7.932345}
   m_Children: []
   m_Father: {fileID: 1969320090}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22, y: 1357}
+  m_AnchoredPosition: {x: 70, y: 1348}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &725566555
@@ -3496,7 +3496,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: cd5c0c2149893034f8176af3b5ffc308, type: 2}
+  - {fileID: 2100000, guid: 69d6265e10df3db48a1e83ca77b75453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4033,6 +4033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4bc5577569acc746a61e0015d26edd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canBeDestroyed: 0
 --- !u!1001 &1014749262
 Prefab:
   m_ObjectHideFlags: 0
@@ -4316,7 +4317,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 3863
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: a511a5fab17cd467b85fb93c0695e042, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: b7ec7e04bc3d74de59b07bc3d0867533, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -4878,14 +4879,14 @@ RectTransform:
   m_GameObject: {fileID: 1256762154}
   m_LocalRotation: {x: -0.00000016292068, y: -0.00000016292068, z: -1, w: 2.654315e-14}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -7.932345, y: 7.932345, z: 7.932345}
+  m_LocalScale: {x: 7.932345, y: 7.932345, z: 7.932345}
   m_Children: []
   m_Father: {fileID: 1969320090}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22, y: -1306}
+  m_AnchoredPosition: {x: 76, y: -1362}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1256762156
@@ -5186,7 +5187,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: dd79ee6b4c723a643a3e8fa55c4d85c2, type: 2}
+  - {fileID: 2100000, guid: a3997b32b5769964491e57931cb723fc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6532,7 +6533,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 5911
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 952506fc2dc114d0badcd009952cc7a0, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: ea865a742467e4a2c88bd2f43aa2db64, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -7969,7 +7970,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: cd5c0c2149893034f8176af3b5ffc308, type: 2}
+  - {fileID: 2100000, guid: 5bc7a87142e327c40970e74407fadcb9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8014,7 +8015,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4080491160143836, guid: b4dcf72cf5d0b114193c2296d90ae2d0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.006
+      value: 0.0131
       objectReference: {fileID: 0}
     - target: {fileID: 4080491160143836, guid: b4dcf72cf5d0b114193c2296d90ae2d0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -8043,6 +8044,16 @@ Prefab:
     - target: {fileID: 1697035916437804, guid: b4dcf72cf5d0b114193c2296d90ae2d0, type: 2}
       propertyPath: m_Name
       value: Avatar
+      objectReference: {fileID: 0}
+    - target: {fileID: 23972414604395474, guid: b4dcf72cf5d0b114193c2296d90ae2d0,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3662124623e9b6b4fa27cd0ce0dc3926, type: 2}
+    - target: {fileID: 23972414604395474, guid: b4dcf72cf5d0b114193c2296d90ae2d0,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114296416323923524, guid: b4dcf72cf5d0b114193c2296d90ae2d0, type: 2}
@@ -8591,7 +8602,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 7447
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: ea865a742467e4a2c88bd2f43aa2db64, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: a511a5fab17cd467b85fb93c0695e042, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -8713,6 +8724,11 @@ Prefab:
       propertyPath: m_TagString
       value: Creatrice
       objectReference: {fileID: 0}
+    - target: {fileID: 23972414604395474, guid: 1b68758410dd9b84787988c426d2e1f2,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d0656d88ed97a264488d622503952ca3, type: 2}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 114296416323923524, guid: 1b68758410dd9b84787988c426d2e1f2, type: 2}
@@ -8784,7 +8800,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: cd5c0c2149893034f8176af3b5ffc308, type: 2}
+  - {fileID: 2100000, guid: 3f7efffb5cee7df41ac3b7ef89f03b98, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

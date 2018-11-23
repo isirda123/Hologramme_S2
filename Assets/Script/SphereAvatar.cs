@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SphereAvatar : MonoBehaviour {
-
+public class SphereAvatar : MonoBehaviour
+{
+    public bool canBeDestroyed;
 	// Use this for initialization
 	void Start () {
 		
@@ -16,7 +17,7 @@ public class SphereAvatar : MonoBehaviour {
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.CompareTag("Score"))
+        if (canBeDestroyed && other.collider.CompareTag("Score"))
         {
             HitScore();
         }
