@@ -63,12 +63,12 @@ public class GyroScope_Mvt : MonoBehaviour {
             rotEuler = Input.gyro.attitude.eulerAngles;
             Vector3 temp = rotEuler;
             rotEuler.x = temp.y;
-            rotEuler.y = 0;
+            rotEuler.y = temp.z;
             rotEuler.z = -temp.x;
             newRot = Quaternion.Euler(rotEuler.x, rotEuler.y, -rotEuler.z);
-            rotEuler.x = -temp.x;
+            rotEuler.x = -temp.x * Mathf.Sign(180 - rotEuler.y);
             rotEuler.y = 0;
-            rotEuler.z = -temp.y;
+            rotEuler.z = -temp.y ;
             newRot = Quaternion.Euler(rotEuler.x, rotEuler.y, rotEuler.z);
 
             //Vector3 localEuler = transform.eulerAngles;
