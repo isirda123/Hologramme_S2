@@ -42,7 +42,7 @@ public class GyroScope_Mvt : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
         Vector3 eulerRotation;
-
+	    Vector3 rotEuler = Vector3.zero;
         if (TypeRotation == true)
         {
  //           if (Input.acceleration.normalized.z < 0)
@@ -59,17 +59,23 @@ public class GyroScope_Mvt : MonoBehaviour {
             //eulerRotation.x = -180f + (eulerRotation.x - -1f) * (180f - -180f) / (1f - -1f);
             //eulerRotation.y = -180f + (eulerRotation.y - -1f) * (180f - -180f) / (1f - -1f);
             //eulerRotation.z = -180f + (eulerRotation.z - -1f) * (180f - -180f) / (1f - -1f);
-            newRot = Input.gyro.attitude;
-            Vector3 rotEuler = newRot.eulerAngles;
+            //newRot = Input.gyro.attitude;
+            rotEuler = Input.gyro.attitude.eulerAngles;
             Vector3 temp = rotEuler;
             rotEuler.x = temp.y;
             rotEuler.y = 0;
             rotEuler.z = -temp.x;
             newRot = Quaternion.Euler(rotEuler.x, rotEuler.y, -rotEuler.z);
             rotEuler.x = -temp.x;
-            rotEuler.y = temp.z;
+            rotEuler.y = 0;
             rotEuler.z = -temp.y;
             newRot = Quaternion.Euler(rotEuler.x, rotEuler.y, rotEuler.z);
+
+            //Vector3 localEuler = transform.eulerAngles;
+            //newRot = Quaternion.AngleAxis(rotEuler.x - transform.eulerAngles.x, transform.right) * newRot;
+            //newRot = Quaternion.AngleAxis(rotEuler.z - transform.eulerAngles.z, transform.forward) * newRot;
+
+
         }
 	    //newRot *= Quaternion.AngleAxis(-90, Vector3.forward);
 
